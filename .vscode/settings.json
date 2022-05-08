@@ -1,0 +1,6 @@
+{
+  "files.exclude": {
+    ".pio": true,
+    ".vscode": true
+  }
+}
