@@ -3,9 +3,9 @@
 
 void init_bt() {
   BT.begin(9600);
-  Serial.begin(9600);
 
-  Serial.println("Ready");
+  Serial.begin(9600);
+  Serial.println("\n\n===\nReady\n===");
 }
 
 void parseSerial(int *dir, int *val) {
@@ -16,24 +16,5 @@ void parseSerial(int *dir, int *val) {
     Serial.println(*dir);
     Serial.println(*val);
     Serial.println("");
-  }
-}
-
-// Unused (for now)
-void parseSerialChar(int *dir, int *val) {
-  static char message[MAX_MESSAGE_LENGTH];
-  static int message_position = 0;
-    
-  while(BT.available()) {
-    char inByte = BT.read();
-
-    if(inByte != '\n' && (message_position < MAX_MESSAGE_LENGTH - 1)) {
-      message[message_position] = inByte;
-      message_position++;
-    } else {
-      message[message_position] = '\0';
-      Serial.println(message);
-      message_position = 0;
-    }
   }
 }

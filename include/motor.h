@@ -5,6 +5,9 @@
 
 // -------------
 
+#define PIN_SERVO_G 5
+#define PIN_SERVO_D 6
+
 #define FWD 0
 #define BCK 1
 #define LFT 2

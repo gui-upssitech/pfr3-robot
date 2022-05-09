@@ -5,8 +5,8 @@
 Servo motorG, motorD;
 
 void init_motors() {
-  motorD.attach(5);
-  motorG.attach(6);
+  motorD.attach(PIN_SERVO_G);
+  motorG.attach(PIN_SERVO_D);
 }
 
 /**
