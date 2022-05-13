@@ -4,12 +4,17 @@
 // -------------
 
 #define BT Serial1
-#define MAX_MESSAGE_LENGTH 50
+#define CMD_LENGTH 12
 
 // -------------
 
-void init_bt();
-void parseSerial(int *dir, int *val);
+class BTHandler {
+
+    public:
+    BTHandler();
+    void parse(int *joy_x, int *joy_y, int *speed);
+
+};
 
 // -------------
 

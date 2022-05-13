@@ -1,20 +1,18 @@
 #include <Arduino.h>
 #include "bluetooth.h"
+#include "debug.h"
 
-void init_bt() {
+#define joy_map(x) ((x) * 2) - 100
+
+BTHandler::BTHandler() {
   BT.begin(9600);
-
-  Serial.begin(9600);
-  Serial.println("\n\n===\nReady\n===");
 }
 
-void parseSerial(int *dir, int *val) {
-  if(BT.available() == 6) {
-    *dir = BT.parseInt();
-    *val = BT.parseInt();
-
-    Serial.println(*dir);
-    Serial.println(*val);
-    Serial.println("");
+void BTHandler::parse(int *joy_x, int *joy_y, int *speed) {
+  // Message format: joy_x:joy_y:speed
+  if(BT.available() >= CMD_LENGTH) {
+    *joy_x = joy_map(BT.parseInt());
+    *joy_y = joy_map(BT.parseInt());
+    *speed = BT.parseInt();
   }
 }

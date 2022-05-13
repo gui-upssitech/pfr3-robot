@@ -5,20 +5,32 @@
 
 // -------------
 
-#define PIN_SERVO_G 5
-#define PIN_SERVO_D 6
+#define PIN_MOTOR_G 5
+#define PIN_MOTOR_D 6
 
-#define FWD 0
-#define BCK 1
-#define LFT 2
-#define RGT 3
 #define ZERO_MOTEUR 95
+#define DIFF_GAP 32
 
 // -------------
 
-void init_motors();
-void commander(int dir, int val);
-void commandAmpl(Servo m, int dir, int val);
+typedef struct {
+    int dir;
+    int speed;
+} Command;
+
+class MotorHandler {
+    private:
+    Servo motor_g, motor_d;
+    Command left, right;
+
+    void commandAmpl(Servo m, Command cmd);
+    void diffSteer(int x, int y, int speed);
+    int calc_speed(int speed, int x, int condition);
+    
+    public:
+    MotorHandler(int motor_g_pin, int motor_d_pin);
+    void command(int x, int y, int val);
+};
 
 // -------------
 

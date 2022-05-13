@@ -1,12 +1,20 @@
 #include <Arduino.h>
 #include <Servo.h>
 #include "motor.h"
+#include "debug.h"
 
-Servo motorG, motorD;
+/* Public functions */
 
-void init_motors() {
-  motorD.attach(PIN_SERVO_G);
-  motorG.attach(PIN_SERVO_D);
+/**
+ * @brief Construct a new Motor Handler object
+ * 
+ * @param motor_g_pin pin for left motor
+ * @param motor_d_pin pin for right motor
+ */
+MotorHandler::MotorHandler(int motor_g_pin, int motor_d_pin) {
+  this->motor_g.attach(motor_g_pin);
+  this->motor_d.attach(motor_d_pin);
+  debug_init();
 }
 
 /**
@@ -15,21 +23,52 @@ void init_motors() {
  * @param dir Détermine la translation / rotation du robot
  * @param val Détermine la vitesse du robot (en %)
  */
-void commander(int dir, int val) {
-  int dirG = (dir == FWD || dir == RGT) ? 1 : -1;
-  int dirD = (dir == FWD || dir == LFT) ? 1 : -1;
+void MotorHandler::command(int x, int y, int speed) {
+  diffSteer(x, y, speed);
 
-  commandAmpl(motorG, dirG, val);
-  commandAmpl(motorD, dirD, val);
+  commandAmpl(motor_g, left);
+  commandAmpl(motor_d, right);
 }
 
 /**
  * @brief commande en vitesse un jeu de moteurs dans les deux sens de rotation
  * 
- * @param dir - détermine le sens de rotation du moteur
- * @param val - vitesse de rotation du moteur (en %)
+ * @param dir détermine le sens de rotation du moteur
+ * @param val vitesse de rotation du moteur (en %)
  */
-void commandAmpl(Servo m, int dir, int val) {
-  int commandVal = ZERO_MOTEUR + dir * (65 * val / 100);
+void MotorHandler::commandAmpl(Servo m, Command cmd) {
+  int commandVal = ZERO_MOTEUR + cmd.dir * (65 * cmd.speed / 100);
   m.write(commandVal);
+}
+
+/**
+ * @brief Calculates the motor commands based on user input
+ * 
+ * @param x x position of the joystick
+ * @param y y position of the joystick
+ * @param speed desired speed of the robot
+ */
+void MotorHandler::diffSteer(int x, int y, int speed) {
+  // Cas repos
+  if(abs(y) < DIFF_GAP && abs(x) < DIFF_GAP) {
+    left.speed = right.speed = 0;
+    left.dir = right.dir = 1;
+    return;
+  }
+
+  // Cas rotation
+  if(abs(y) < DIFF_GAP) {
+    left.speed = right.speed = speed;
+    left.dir = (x < 0) ? -1 : 1;
+    right.dir = -1 * left.dir;
+    return;
+  }
+
+  left.dir = right.dir = (y < 0) ? 1 : -1;
+  left.speed = calc_speed(speed, x, (x > 0));
+  right.speed = calc_speed(speed, x, (x < 0));
+}
+
+int MotorHandler::calc_speed(int speed, int x, int condition) {
+  return condition ? speed : speed * (100 - abs(x)) / 100;
 }
