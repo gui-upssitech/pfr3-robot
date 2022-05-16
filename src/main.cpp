@@ -23,9 +23,11 @@ void loop()
 
   static Encoder encoder;
 
-  Serial.print("left wheel: ");
-  Serial.println((int) REG_TC0_CV0);
+  // Serial.print("left wheel: ");
+  // Serial.println((int) REG_TC0_CV0);
 
-  Serial.print("right wheel: ");
-  Serial.println((int) REG_TC2_CV0);
+  // Serial.print("right wheel: ");
+  // Serial.println((int) REG_TC2_CV0);
+
+  Serial.println(i);
 }
