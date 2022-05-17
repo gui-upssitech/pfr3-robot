@@ -9,9 +9,13 @@
 
 #define ENCODER_LEFT_1 2
 #define ENCODER_LEFT_2 13
-
 #define ENCODER_RIGHT_1 5
 #define ENCODER_RIGHT_2 4
+#define ENCODER_RESOLUTION 360.0/12000.0
+
+#define CLK4_RESOLUTION_US 128.0/84.0
+#define TICKS_IT 10
+#define SPEED_DT (CLK4_RESOLUTION_US*TICKS_IT)
 
 #define ENCODER_RESOLUTION (360.0 / 12000.0)
 
@@ -55,7 +59,6 @@ class Encoder
         void initializePins();
         void initializeQuadratureEncoders();
         void initializePeriodicIT();
-        void TC1_Handler();
 };
 
 // -------------

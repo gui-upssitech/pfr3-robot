@@ -44,5 +44,5 @@ void Servo::write_right(float angle)
     float duration = angle / 180.0 + PERIOD_MS / 2.0;
     int value = duration / (CLK_RES_MS);
     value = (value < R_MIN) ? (R_MIN) : ((value > R_MAX) ? (R_MAX) : value);
-    REG_TC0_RB2 = value;
+    REG_TC2_RB2 = value;
 }
