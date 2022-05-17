@@ -13,7 +13,15 @@
 #define ENCODER_RIGHT_1 5
 #define ENCODER_RIGHT_2 4
 
+#define ENCODER_RESOLUTION (360.0 / 12000.0)
+
+
 #define RADIUS_WHEEL_MM 60
+
+
+#define CLOCK4_RESOLUTION_US (128.0 / 84.0)
+#define TICKS 10.0
+#define SPEED_DT_US (TICKS * CLOCK4_RESOLUTION_US)
 
 // -------------
 
@@ -37,7 +45,6 @@ class Encoder
     public:
         Encoder();
         void initialize();
-        robot_config_t getConfiguration();
 
     private:
         robot_config_t robotConfiguration;
@@ -48,6 +55,7 @@ class Encoder
         void initializePins();
         void initializeQuadratureEncoders();
         void initializePeriodicIT();
+        void TC1_Handler();
 };
 
 // -------------

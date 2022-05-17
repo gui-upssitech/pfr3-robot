@@ -3,6 +3,7 @@
 #include "bluetooth.h"
 #include "motor.h"
 #include "encoder.h"
+#include "servo.h"
 
 void print_time(const char* msg);
 
@@ -22,10 +23,6 @@ void loop()
   // motor.command(joy_x, joy_y, speed);
 
   static Encoder encoder;
-
-  Serial.print("left wheel: ");
-  Serial.println((int) REG_TC0_CV0);
-
-  Serial.print("right wheel: ");
-  Serial.println((int) REG_TC2_CV0);
+  static Servo servo;
+    
 }

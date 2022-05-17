@@ -62,5 +62,20 @@ void Encoder::initializeQuadratureEncoders()
 
 void Encoder::initializePeriodicIT()
 {
+    REG_PMC_PCER0 |= PMC_PCER0_PID30;
+    REG_TC1_IDR0 = 0xFFFFFFFF;
+    REG_TC1_SR0;
+    REG_TC1_CMR0 = TC_CMR_TCCLKS_TIMER_CLOCK4 | TC_CMR_WAVE | TC_CMR_WAVSEL_UP_RC;     
+    REG_TC1_RC0 = TICKS;
+    REG_TC1_IER0 = TC_IER_CPCS;
+    NVIC_EnableIRQ(TC3_IRQn);
+    REG_TC1_CCR0 = TC_CCR_CLKEN | TC_CCR_SWTRG;
+}
 
+
+void TC3_Handler()
+{
+    REG_TC1_SR0;
+    // opération à exécuter lors de l'interruption
+    i++;
 }
