@@ -5,9 +5,6 @@
 
 // -------------
 
-#define PIN_MOTOR_G 5
-#define PIN_MOTOR_D 6
-
 #define ZERO_MOTEUR 95
 #define DIFF_GAP 32
 

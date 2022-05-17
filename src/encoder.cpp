@@ -79,3 +79,8 @@ void Encoder::TC2_Handler()
     REG_TC0_SR2;
     
 }
+
+void Encoder::parse(int *left, int *right) {
+    *left = (int) REG_TC0_CV0;
+    *right = (int) REG_TC2_CV0;
+}

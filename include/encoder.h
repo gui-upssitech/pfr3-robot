@@ -43,6 +43,7 @@ class Encoder
         Encoder();
         void initialize();
         robot_config_t getConfiguration();
+        void parse(int *left, int *right);
 
     private:
         robot_config_t robotConfiguration;
@@ -53,7 +54,7 @@ class Encoder
         void initializePins();
         void initializeQuadratureEncoders();
         void initializePeriodicIT();
-        static void TC2_Handler() 
+        static void TC2_Handler() ;
 };
 
 // -------------
