@@ -4,7 +4,7 @@
 #define DEBUG 1
 
 #if DEBUG == 1
-#define debug_init() Serial.begin(9600)
+#define debug_init() Serial.begin(9600);
 #define debug(x) Serial.print(x)
 #define debugln(x) Serial.println(x)
 #else

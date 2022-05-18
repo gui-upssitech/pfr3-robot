@@ -1,22 +1,21 @@
-// #include <RPLidar.h>
+#include <RPLidar.h>
 
-// #ifndef H_LIDAR
-// #define H_LIDAR
+#ifndef H_LIDAR
+#define H_LIDAR
 
-// // -------------
+// -------------
 
-// class Lidar {
+class Lidar {
 
-//     private:
-//     RPLidar lidar;
-//     int motor_pin;
+    private:
+    RPLidar lidar;
 
-//     public:
-//     Lidar(HardwareSerial& serial_port, int baudrate, int motor_pin);
-//     void parse(int *lidar_x, int *lidar_y);
+    public:
+    Lidar(HardwareSerial& serial_port, int baudrate);
+    void parse(int *lidar_x, int *lidar_y);
 
-// };
+};
 
-// // -------------
+// -------------
 
-// #endif
+#endif
