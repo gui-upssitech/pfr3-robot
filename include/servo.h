@@ -8,9 +8,9 @@
 // -------------
 
 #define LEFT_MOTOR_PIN 11
-#define RIGHT_MOTOR_PIN 5   
+#define RIGHT_MOTOR_PIN 12   
 
-# define CLK_RES_MS (128.0/84000.0)
+#define CLK_RES_MS (128.0/84000.0)
 #define PERIOD_MS 2
 #define RC 1312
 #define R_MIN (RC/2)

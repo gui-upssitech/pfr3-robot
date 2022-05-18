@@ -11,20 +11,14 @@
 #define ENCODER_LEFT_2 13
 #define ENCODER_RIGHT_1 5
 #define ENCODER_RIGHT_2 4
+#define ENCODER_RESOLUTION (2.0*PI/12000.0)
 
-#define CLK4_RESOLUTION_US 128.0/84.0
-#define TICKS_IT 10
-#define SPEED_DT (CLK4_RESOLUTION_US*TICKS_IT)
+#define CLK4_RESOLUTION (128.0/84000000.0)
+#define TICKS_IT 100.0
+#define SPEED_DT (CLK4_RESOLUTION*TICKS_IT)
 
-#define ENCODER_RESOLUTION (360.0 / 12000.0)
-
-
-#define RADIUS_WHEEL_MM 60
-
-
-#define CLOCK4_RESOLUTION_US (128.0 / 84.0)
-#define TICKS 10.0
-#define SPEED_DT_US (TICKS * CLOCK4_RESOLUTION_US)
+#define RADIUS_WHEEL_MM 60.0
+#define L 290.0
 
 // -------------
 
@@ -35,11 +29,7 @@ typedef struct
     double theta;
 } robot_config_t;
 
-typedef struct 
-{
-    double angular_rotation;
-    double linear_speed;
-} encoder_data_t;
+extern robot_config_t robotConfiguration;
 
 // -------------
 
@@ -50,10 +40,6 @@ class Encoder
         void initialize();
 
     private:
-        robot_config_t robotConfiguration;
-        encoder_data_t leftEncoderData;
-        encoder_data_t rightEncoderData;
-
         void initializeDataStruct();
         void initializePins();
         void initializeQuadratureEncoders();
