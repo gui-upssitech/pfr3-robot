@@ -104,3 +104,8 @@ void TC3_Handler()
     old_left_linear_speed = left_linear_pos;
     old_right_linear_speed = right_linear_pos;
 }
+
+void Encoder::parse(int *enc_left, int *enc_right) {
+    *enc_left = (int) REG_TC0_CV0;
+    *enc_right = (int) REG_TC2_CV0;
+}

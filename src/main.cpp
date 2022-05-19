@@ -24,7 +24,6 @@ void loop()
   static MotorHandler motor;
   static Encoder encoder;
 
-  /*
   static int joy_x = 0, joy_y = 0, speed = 0,
              lidar_x = 0, lidar_y = 0,
              encoder_left = 0, encoder_right = 0;
@@ -34,21 +33,19 @@ void loop()
   bt.parse(&joy_x, &joy_y, &speed);
   motor.command(joy_x, joy_y, speed);
 
-  //lidar.parse(&lidar_x, &lidar_y);
+  lidar.parse(&lidar_x, &lidar_y);
+  encoder.parse(&encoder_left, &encoder_right);
   bt.send(lidar_x, lidar_y, encoder_left, encoder_right);
 
-  sprintf(debug_str, "x: %d, y: %d", lidar_x, lidar_y);
-  debugln(debug_str);
-  static Encoder encoder;
-  static Servo servo;
-  */
+  // sprintf(debug_str, "x: %d, y: %d", lidar_x, lidar_y);
+  // debugln(debug_str);
  
-  Serial.print(robotConfiguration.x);
-  Serial.print(",");
-  Serial.print(robotConfiguration.y);
-  Serial.print(",");
-  Serial.println(robotConfiguration.theta * 180.0 / PI);
-  Serial.println();
+  // Serial.print(robotConfiguration.x);
+  // Serial.print(",");
+  // Serial.print(robotConfiguration.y);
+  // Serial.print(",");
+  // Serial.println(robotConfiguration.theta * 180.0 / PI);
+  // Serial.println();
 
   // Serial.print("left: ");
   // Serial.println((int) REG_TC0_CV0);

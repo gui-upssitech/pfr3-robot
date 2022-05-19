@@ -37,9 +37,10 @@ class Encoder
 {
     public:
         Encoder();
-        void initialize();
+        void parse(int *enc_left, int *enc_right);
 
     private:
+        void initialize();
         void initializeDataStruct();
         void initializePins();
         void initializeQuadratureEncoders();
