@@ -1,55 +1,39 @@
 #include <Arduino.h>
-#include "debug.h"
-
 #include "bluetooth.h"
 #include "lidar.h"
 #include "motor.h"
 #include "encoder.h"
 #include "servo.h"
-
 #include "pinout.h"
-#define BAUDRATE 115200
 
-void setup()
+
+void setup() 
 {
-  debug_init();
+  BLUETOOTH_SERIAL.begin(BLUETOOTH_BAUDRATE);
+  LIDAR_SERIAL.begin(LIDAR_BAUDRATE);
 }
 
 void loop() 
 {
-  // Variables
-
-  static BTHandler bt(SERIAL_BT, 9600);
-  static Lidar lidar(SERIAL_LIDAR, BAUDRATE);
+  // static objects 
+  static BTHandler bt(BLUETOOTH_SERIAL, BLUETOOTH_BAUDRATE);
+  static Lidar lidar(LIDAR_SERIAL, LIDAR_BAUDRATE);
   static MotorHandler motor;
   static Encoder encoder;
 
-  static int joy_x = 0, joy_y = 0, speed = 0,
-             lidar_x = 0, lidar_y = 0,
-             encoder_left = 0, encoder_right = 0;
+  // static variables
+  static int joy_x = 0, joy_y = 0, speed = 0;
+  static int lidar_x = 0, lidar_y = 0;
 
-  static char debug_str[1024];
-
+  // read controller data (manual mode)
   bt.parse(&joy_x, &joy_y, &speed);
+
+  // apply the command to the motors
   motor.command(joy_x, joy_y, speed);
 
+  // read lidar data
   lidar.parse(&lidar_x, &lidar_y);
-  encoder.parse(&encoder_left, &encoder_right);
-  bt.send(lidar_x, lidar_y, encoder_left, encoder_right);
 
-  // sprintf(debug_str, "x: %d, y: %d", lidar_x, lidar_y);
-  // debugln(debug_str);
- 
-  // Serial.print(robotConfiguration.x);
-  // Serial.print(",");
-  // Serial.print(robotConfiguration.y);
-  // Serial.print(",");
-  // Serial.println(robotConfiguration.theta * 180.0 / PI);
-  // Serial.println();
-
-  // Serial.print("left: ");
-  // Serial.println((int) REG_TC0_CV0);
-
-  // Serial.print("right: ");
-  // Serial.println((int) REG_TC2_CV0);
+  // send lidar data + robot position
+  bt.send(lidar_x, lidar_y, robotConfiguration.x, robotConfiguration.y);
 }

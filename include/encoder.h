@@ -37,7 +37,6 @@ class Encoder
 {
     public:
         Encoder();
-        void parse(int *enc_left, int *enc_right);
 
     private:
         void initialize();

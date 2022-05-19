@@ -2,10 +2,11 @@
 #include "bluetooth.h"
 #include "debug.h"
 
-#define joy_map(x) ((x) * 2) - 100
+#define joy_map(x) (((x) * 2) - 100)
 
-BTHandler::BTHandler(HardwareSerial& serial_port, int baudrate) : bt(serial_port) {
-  bt.begin(baudrate);
+BTHandler::BTHandler(HardwareSerial& serial_port, int baudrate) : bt(serial_port) 
+{
+  // bt.begin(baudrate);
 }
 
 void BTHandler::parse(int *joy_x, int *joy_y, int *speed) {
@@ -17,8 +18,9 @@ void BTHandler::parse(int *joy_x, int *joy_y, int *speed) {
   }
 }
 
-void BTHandler::send(int lidar_x, int lidar_y, int enc_left, int enc_right) {
+void BTHandler::send(int lidar_x, int lidar_y, int robot_x, int robot_y) 
+{
   char cmd[50];
-  sprintf(cmd, "%d:%d:%d:%d", lidar_x, lidar_y, enc_left, enc_right);
+  sprintf(cmd, "%d:%d:%d:%d", lidar_x, lidar_y, robot_x, robot_y);
   bt.println(cmd);
 }
