@@ -10,6 +10,10 @@
 
 // -------------
 
+#define joy_map(x) (((x) * 2) - 100)
+
+// -------------
+
 class BTHandler 
 {
     private:

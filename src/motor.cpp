@@ -1,6 +1,5 @@
 #include <Arduino.h>
 #include "motor.h"
-#include "debug.h"
 
 /* Public functions */
 
@@ -8,7 +7,7 @@
  * @brief Construct a new Motor Handler object
  */
 MotorHandler::MotorHandler() {
-    debug_init();
+    // debug_init();
 }
 
 /**

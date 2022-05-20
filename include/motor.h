@@ -15,7 +15,8 @@ typedef struct {
     int speed;
 } Command;
 
-class MotorHandler {
+class MotorHandler 
+{
     private:
     Servo servoHandler;
     Command left, right;

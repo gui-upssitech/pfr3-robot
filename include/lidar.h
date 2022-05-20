@@ -13,7 +13,8 @@
 
 // -------------
 
-class Lidar {
+class Lidar 
+{
 
     private:
     RPLidar lidar;

@@ -1,8 +1,5 @@
 #include <Arduino.h>
 #include "bluetooth.h"
-#include "debug.h"
-
-#define joy_map(x) (((x) * 2) - 100)
 
 BTHandler::BTHandler(HardwareSerial& serial_port, int baudrate) : bt(serial_port) 
 {
