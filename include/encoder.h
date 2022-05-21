@@ -29,22 +29,17 @@ typedef struct
     double theta;
 } robot_config_t;
 
+// -------------
+
 extern robot_config_t robotConfiguration;
 
 // -------------
 
-class Encoder 
-{
-    public:
-        Encoder();
-
-    private:
-        void initialize();
-        void initializeDataStruct();
-        void initializePins();
-        void initializeQuadratureEncoders();
-        void initializePeriodicIT();
-};
+void init_encoder();
+void init_data_struct_encoder();
+void init_pins_encoder();
+void init_quadrature_encoder();
+void init_periodic_IT_encoder();
 
 // -------------
 

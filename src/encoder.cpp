@@ -2,26 +2,21 @@
 
 robot_config_t robotConfiguration;
 
-Encoder::Encoder()
+void init_encoder()
 {
-    initialize();
+    init_data_struct_encoder();
+    init_pins_encoder();
+    init_quadrature_encoder();
+    init_periodic_IT_encoder();
 }
 
-void Encoder::initialize()
-{
-    initializeDataStruct();
-    initializePins();
-    initializeQuadratureEncoders();
-    initializePeriodicIT();
-}
-
-void Encoder::initializePins()
+void init_pins_encoder()
 {
     PIO_Configure(PIOC, PIO_PERIPH_B, PIO_PC25B_TIOA6, PIO_DEFAULT);
     PIO_Configure(PIOC, PIO_PERIPH_B, PIO_PC26B_TIOB6, PIO_DEFAULT);
 }
 
-void Encoder::initializeDataStruct()
+void init_data_struct_encoder()
 {
     /* init robot configuration */
     robotConfiguration.x = 0.0;
@@ -29,7 +24,7 @@ void Encoder::initializeDataStruct()
     robotConfiguration.theta = 0.0;
 }
 
-void Encoder::initializeQuadratureEncoders()
+void init_quadrature_encoder()
 {
     /* Setup the left quadrature encoder on PB25 (digital pin 2) and PB27 (digital pin 13) */
     REG_PMC_PCER0 = PMC_PCER0_PID27; // activate clock for TC0  
@@ -56,7 +51,7 @@ void Encoder::initializeQuadratureEncoders()
     REG_TC2_CCR0 = TC_CCR_CLKEN | TC_CCR_SWTRG;
 }
 
-void Encoder::initializePeriodicIT()
+void init_periodic_IT_encoder()
 {
     REG_PMC_PCER0 |= PMC_PCER0_PID30;
     REG_TC1_IDR0 = 0xFFFFFFFF;

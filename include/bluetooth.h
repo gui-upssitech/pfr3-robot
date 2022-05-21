@@ -14,16 +14,9 @@
 
 // -------------
 
-class BTHandler 
-{
-    private:
-    HardwareSerial& bt;
-
-    public:
-    BTHandler(HardwareSerial& serial_port, int baudrate);
-    void parse(int *joy_x, int *joy_y, int *speed);
-    void send(int lidar_x, int lidar_y, int robot_x, int robot_y);
-};
+void init_bluetooth();
+void parse_bluetooth(int *joy_x, int *joy_y, int *speed);
+void send_bluetooth(int lidar_x, int lidar_y, int robot_x, int robot_y);
 
 // -------------
 

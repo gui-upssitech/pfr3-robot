@@ -1,11 +1,7 @@
 #include "servo.h"
 
-Servo::Servo()
-{
-    initialize();
-}
 
-void Servo::initialize()
+void init_servo()
 {
     REG_PMC_PCER0 |= PMC_PCER0_PID29;
     REG_PMC_PCER1 |= (PMC_PCER1_PID34 | PMC_PCER1_PID35);
@@ -29,18 +25,31 @@ void Servo::initialize()
     REG_TC2_RB2 = R_MIN;
 
     REG_TC2_CCR2 = TC_CCR_CLKEN | TC_CCR_SWTRG;
+
+    write_left_servo(ZERO_MOTEUR);
+    write_right_servo(ZERO_MOTEUR);
 }
 
-void Servo::write_left(float angle)
+void write_left_servo(float angle)
 {
+    if(emergency_flag == 0x01)
+    {
+        angle = ZERO_MOTEUR;
+    }
+
     float duration = angle / 180.0 + PERIOD_MS / 2.0;
     int value = duration / (CLK_RES_MS);
     value = (value < R_MIN) ? (R_MIN) : ((value > R_MAX) ? (R_MAX) : value);
     REG_TC2_RA2 = value;
 }
 
-void Servo::write_right(float angle)
+void write_right_servo(float angle)
 {
+    if(emergency_flag == 0x01)
+    {
+        angle = ZERO_MOTEUR;
+    }
+    
     float duration = angle / 180.0 + PERIOD_MS / 2.0;
     int value = duration / (CLK_RES_MS);
     value = (value < R_MIN) ? (R_MIN) : ((value > R_MAX) ? (R_MAX) : value);

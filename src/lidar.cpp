@@ -1,14 +1,14 @@
 #include "lidar.h"
-                       
-                        
-Lidar::Lidar(HardwareSerial& serial_port, int baudrate) 
+                                     
+RPLidar lidar;
+
+void init_lidar()
 {
-  // bind the RPLIDAR driver to the arduino hardware serial
-  // serial_port.begin(baudrate);
-  lidar.begin(serial_port);
+  LIDAR_SERIAL.begin(LIDAR_BAUDRATE);
+  lidar.begin(LIDAR_SERIAL);
 }
 
-void Lidar::parse(int *lidar_x, int *lidar_y) 
+void send_data() 
 {
   if (IS_OK(lidar.waitPoint())) 
   {
@@ -18,8 +18,14 @@ void Lidar::parse(int *lidar_x, int *lidar_y)
     //perform data processing here...
     if(distance > 0.0)
     {
-      *lidar_x = (int) ((distance * cos(angle * PI / 180.0 - robotConfiguration.theta) + robotConfiguration.x) / 10.0);
-      *lidar_y = (int) ((distance * sin(angle * PI / 180.0 - robotConfiguration.theta) + robotConfiguration.y) / 10.0);
+      Serial.println(angle);
+      BLUETOOTH_SERIAL.print((int) ((distance * cos(angle * PI / 180.0 - robotConfiguration.theta) + robotConfiguration.x) / 10.0));
+      BLUETOOTH_SERIAL.print(":");
+      BLUETOOTH_SERIAL.println((int) ((distance * sin(angle * PI / 180.0 - robotConfiguration.theta) + robotConfiguration.y) / 10.0));
+      // BLUETOOTH_SERIAL.print(":");
+      // BLUETOOTH_SERIAL.print((int) robotConfiguration.x);
+      // BLUETOOTH_SERIAL.print(":");
+      // BLUETOOTH_SERIAL.println((int) robotConfiguration.y);
     }
     
   } 

@@ -1,13 +1,13 @@
 #include <Arduino.h>
 #include "motor.h"
 
+Command left, right;
+
 /* Public functions */
 
-/**
- * @brief Construct a new Motor Handler object
- */
-MotorHandler::MotorHandler() {
-    // debug_init();
+void init_motor()
+{
+
 }
 
 /**
@@ -16,11 +16,12 @@ MotorHandler::MotorHandler() {
  * @param dir Détermine la translation / rotation du robot
  * @param val Détermine la vitesse du robot (en %)
  */
-void MotorHandler::command(int x, int y, int speed) {
-  diffSteer(x, y, speed);
+void command_motor(int x, int y, int speed) 
+{
+  diff_steer_motor(x, y, speed);
 
-  servoHandler.write_left(getAmpl(left));
-  servoHandler.write_right(getAmpl(right));
+  write_left_servo(get_ampl_motor(left));
+  write_right_servo(get_ampl_motor(right));
 }
 
 /**
@@ -29,7 +30,8 @@ void MotorHandler::command(int x, int y, int speed) {
  * @param dir détermine le sens de rotation du moteur
  * @param val vitesse de rotation du moteur (en %)
  */
-int MotorHandler::getAmpl(Command cmd) {
+int get_ampl_motor(Command cmd) 
+{
   return ZERO_MOTEUR + cmd.dir * (65 * cmd.speed / 100);
 }
 
@@ -40,16 +42,19 @@ int MotorHandler::getAmpl(Command cmd) {
  * @param y y position of the joystick
  * @param speed desired speed of the robot
  */
-void MotorHandler::diffSteer(int x, int y, int speed) {
+void diff_steer_motor(int x, int y, int speed) 
+{
   // Cas repos
-  if(abs(y) < DIFF_GAP && abs(x) < DIFF_GAP) {
+  if(abs(y) < DIFF_GAP && abs(x) < DIFF_GAP) 
+  {
     left.speed = right.speed = 0;
     left.dir = right.dir = 1;
     return;
   }
 
   // Cas rotation
-  if(abs(y) < DIFF_GAP) {
+  if(abs(y) < DIFF_GAP) 
+  {
     left.speed = right.speed = speed;
     left.dir = (x < 0) ? -1 : 1;
     right.dir = -1 * left.dir;
@@ -57,10 +62,11 @@ void MotorHandler::diffSteer(int x, int y, int speed) {
   }
 
   left.dir = right.dir = (y < 0) ? 1 : -1;
-  left.speed = calc_speed(speed, x, (x > 0));
-  right.speed = calc_speed(speed, x, (x < 0));
+  left.speed = calc_speed_motor(speed, x, (x > 0));
+  right.speed = calc_speed_motor(speed, x, (x < 0));
 }
 
-int MotorHandler::calc_speed(int speed, int x, int condition) {
+int calc_speed_motor(int speed, int x, int condition) 
+{
   return condition ? speed : speed * (100 - abs(x)) / 100;
 }
