@@ -68,5 +68,5 @@ void diff_steer_motor(int x, int y, int speed)
 
 int calc_speed_motor(int speed, int x, int condition) 
 {
-  return condition ? speed : speed * (100 - abs(x)) / 100;
+  return condition ? speed : speed * (100 - abs(x)) / 100.0;
 }

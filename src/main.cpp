@@ -16,7 +16,7 @@ void setup()
   // 
   // 
   // initializeCommandIT();
-  // init_bluetooth();
+  init_bluetooth();
   // init_lidar();
   init_servo();
   init_encoder();
@@ -26,12 +26,6 @@ void setup()
 
 void loop() 
 {
-  // Variables
-  // static BTHandler bt(BLUETOOTH_SERIAL, BLUETOOTH_BAUDRATE);
-  // static Lidar lidar(LIDAR_SERIAL, LIDAR_BAUDRATE);
-  // static MotorHandler motor;
-  // static Encoder encoder;
-
   // static int joy_x = 0, joy_y = 0, speed = 0;
   // static int lidar_x = 0, lidar_y = 0;
 
@@ -62,5 +56,9 @@ void loop()
 
   // emergency_routine();
 
-  manual_system();
+  // manual_system();
+  // hc05_configuration();
+
+  write_left_servo(160);
+  write_right_servo(40);
 }

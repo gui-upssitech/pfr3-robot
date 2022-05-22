@@ -4,7 +4,7 @@
 // -------------
 
 #define BLUETOOTH_SERIAL    Serial1
-#define BLUETOOTH_BAUDRATE  115200
+#define BLUETOOTH_BAUDRATE  38400
 
 #define CMD_LENGTH          12
 

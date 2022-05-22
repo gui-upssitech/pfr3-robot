@@ -10,6 +10,7 @@
 
 void automatic_system();
 void manual_system();
+void hc05_configuration();
 
 // -------------
 
