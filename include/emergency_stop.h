@@ -19,7 +19,7 @@ extern char emergency_flag;
 // -------------
 
 void init_emergency_stop();
-void emergency_routine();
+void emergency_routine(int joy_y);
 
 // -------------
 

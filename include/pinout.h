@@ -20,4 +20,7 @@
 
 #define EMERGENCY_STOP  A0
 
+#define FRONT_CAPTOR    A0
+#define RIGHT_CAPTOR    A1
+
 #endif

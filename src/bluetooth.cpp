@@ -17,7 +17,6 @@ void parse_bluetooth(int* joy_x, int* joy_y, int* speed)
   if(BLUETOOTH_SERIAL.available())
   {
     data[idx] = BLUETOOTH_SERIAL.read();
-    Serial.print(data[idx]);
     idx++;
   }
 
@@ -38,7 +37,7 @@ void parse_bluetooth(int* joy_x, int* joy_y, int* speed)
       *joy_y = joy_map(atoi(strtokIdx));
 
       strtokIdx = strtok(NULL, ":");
-      *speed = joy_map(atoi(strtokIdx));
+      *speed = atoi(strtokIdx);
     }
     else
     {

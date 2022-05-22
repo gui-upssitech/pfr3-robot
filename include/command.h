@@ -19,12 +19,9 @@
 
 // -------------
 
-extern double theta_cmd;
-extern double error;
-
-// -------------
-
-void initializeCommandIT();
+void rotate_command(float command_angle);
+void blind_rotate_command(int wise);
+void forward_command(int right_sensor);
 
 // -------------
 

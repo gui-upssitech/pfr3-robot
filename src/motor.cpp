@@ -32,7 +32,7 @@ void command_motor(int x, int y, int speed)
  */
 int get_ampl_motor(Command cmd) 
 {
-  return ZERO_MOTEUR + cmd.dir * (65 * cmd.speed / 100);
+  return ZERO_MOTEUR + cmd.dir * (65 * cmd.speed / 100.0);
 }
 
 /**

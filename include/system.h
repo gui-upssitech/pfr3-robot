@@ -5,6 +5,8 @@
 
 #include "emergency_stop.h"
 #include "bluetooth.h"
+#include "ir_sensor.h"
+#include "command.h"
 
 // -------------
 
