@@ -1,20 +1,21 @@
-#include <RPLidar.h>
-
 #ifndef H_LIDAR
 #define H_LIDAR
 
 // -------------
 
-class Lidar {
+#include <RPLidar.h>
+#include "encoder.h"
+#include "bluetooth.h"
 
-    private:
-    RPLidar lidar;
+// -------------
 
-    public:
-    Lidar(HardwareSerial& serial_port, int baudrate);
-    void parse(int *lidar_x, int *lidar_y);
+#define LIDAR_SERIAL    Serial2
+#define LIDAR_BAUDRATE  115200
 
-};
+// -------------
+
+void init_lidar(); 
+void sendData();
 
 // -------------
 

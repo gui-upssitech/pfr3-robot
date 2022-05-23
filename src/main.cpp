@@ -1,55 +1,35 @@
 #include <Arduino.h>
-#include "debug.h"
-
 #include "bluetooth.h"
 #include "lidar.h"
 #include "motor.h"
 #include "encoder.h"
 #include "servo.h"
-
 #include "pinout.h"
-#define BAUDRATE 115200
+#include "command.h"
+#include "emergency_stop.h"
+#include "system.h"
+#include "ir_sensor.h"
+
 
 void setup()
 {
-  debug_init();
+  Serial.begin(115200);
+  init_bluetooth();
+  init_servo();
+  init_encoder();
+  init_motor();
+  // init_emergency_stop();
+  init_ir_sensor();
+
+  Serial.println("Initializing...");
+  delay(1000);
 }
 
 void loop() 
 {
-  // Variables
-
-  static BTHandler bt(SERIAL_BT, 9600);
-  static Lidar lidar(SERIAL_LIDAR, BAUDRATE);
-  static MotorHandler motor;
-  static Encoder encoder;
-
-  static int joy_x = 0, joy_y = 0, speed = 0,
-             lidar_x = 0, lidar_y = 0,
-             encoder_left = 0, encoder_right = 0;
-
-  static char debug_str[1024];
-
-  bt.parse(&joy_x, &joy_y, &speed);
-  motor.command(joy_x, joy_y, speed);
-
-  lidar.parse(&lidar_x, &lidar_y);
-  encoder.parse(&encoder_left, &encoder_right);
-  bt.send(lidar_x, lidar_y, encoder_left, encoder_right);
-
-  // sprintf(debug_str, "x: %d, y: %d", lidar_x, lidar_y);
-  // debugln(debug_str);
- 
-  // Serial.print(robotConfiguration.x);
-  // Serial.print(",");
-  // Serial.print(robotConfiguration.y);
-  // Serial.print(",");
-  // Serial.println(robotConfiguration.theta * 180.0 / PI);
-  // Serial.println();
-
-  // Serial.print("left: ");
-  // Serial.println((int) REG_TC0_CV0);
-
-  // Serial.print("right: ");
-  // Serial.println((int) REG_TC2_CV0);
+  // manual_system();
+  // Serial.println("Starting...");
+  // rotate_command(PI);
+  // rotate_command(-PI);
+  automatic_system();
 }

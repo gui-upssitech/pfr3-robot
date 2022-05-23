@@ -4,11 +4,10 @@
 // -------------
 
 #include <Arduino.h>
+#include "motor.h"
+#include "emergency_stop.h"
 
 // -------------
-
-#define LEFT_MOTOR_PIN 11
-#define RIGHT_MOTOR_PIN 12   
 
 #define CLK_RES_MS (128.0/84000.0)
 #define PERIOD_MS 2
@@ -18,17 +17,9 @@
 
 // -------------
 
-class Servo 
-{
-    public:
-    Servo();
-    void write_left(float angle);
-    void write_right(float angle);
-
-    private:
-    void initialize();
-    
-};
+void init_servo();
+void write_left_servo(float angle);
+void write_right_servo(float angle);
 
 // -------------
 

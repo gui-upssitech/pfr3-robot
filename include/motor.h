@@ -1,7 +1,9 @@
-#include "servo.h"
-
 #ifndef H_MOTOR
 #define H_MOTOR
+
+// -------------
+
+#include "servo.h"
 
 // -------------
 
@@ -10,24 +12,19 @@
 
 // -------------
 
-typedef struct {
+typedef struct 
+{
     int dir;
     int speed;
 } Command;
 
-class MotorHandler {
-    private:
-    Servo servoHandler;
-    Command left, right;
+// -------------
 
-    int getAmpl(Command cmd);
-    void diffSteer(int x, int y, int speed);
-    int calc_speed(int speed, int x, int condition);
-    
-    public:
-    MotorHandler();
-    void command(int x, int y, int val);
-};
+void init_motor();
+int get_ampl_motor(Command cmd);
+void diff_steer_motor(int x, int y, int speed);
+int calc_speed_motor(int speed, int x, int condition);
+void command_motor(int x, int y, int val);
 
 // -------------
 
